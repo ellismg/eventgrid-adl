@@ -1,0 +1,55 @@
+// https://github.com/Azure/azure-rest-api-specs/blob/master/specification/eventgrid/data-plane/Microsoft.PolicyInsights/stable/2018-01-01/PolicyInsights.json
+
+// @eventType("Microsoft.PolicyInsights.PolicyStateCreated")
+model PolicyInsightsPolicyStateCreatedEventData {
+    @doc("The time that the resource was scanned by Azure Policy in the Universal ISO 8601 DateTime format yyyy-MM-ddTHH:mm:ss.fffffffZ.")
+    timestamp: zonedDateTime,
+    @doc("The resource ID of the policy assignment.")
+    policyAssignmentId: string,
+    @doc("The resource ID of the policy definition.")
+    policyDefinitionId: string,
+    @doc("The reference ID for the policy definition inside the initiative definition, if the policy assignment is for an initiative. May be empty.")
+    policyDefinitionReferenceId: string,
+    @doc("The compliance state of the resource with respect to the policy assignment.")
+    complianceState: string,
+    @doc("The subscription ID of the resource.")
+    subscriptionId: string,
+    @doc("The compliance reason code. May be empty.")
+    complianceReasonCode: string,
+}
+
+// @eventType("Microsoft.PolicyInsights.PolicyStateChanged")
+model PolicyInsightsPolicyStateChangedEventData {
+    @doc("The time that the resource was scanned by Azure Policy in the Universal ISO 8601 DateTime format yyyy-MM-ddTHH:mm:ss.fffffffZ.")
+    timestamp: zonedDateTime,
+    @doc("The resource ID of the policy assignment.")
+    policyAssignmentId: string,
+    @doc("The resource ID of the policy definition.")
+    policyDefinitionId: string,
+    @doc("The reference ID for the policy definition inside the initiative definition, if the policy assignment is for an initiative. May be empty.")
+    policyDefinitionReferenceId: string,
+    @doc("The compliance state of the resource with respect to the policy assignment.")
+    complianceState: string,
+    @doc("The subscription ID of the resource.")
+    subscriptionId: string,
+    @doc("The compliance reason code. May be empty.")
+    complianceReasonCode: string,
+}
+
+// @eventType("Microsoft.PolicyInsights.PolicyStateDeleted")
+model PolicyInsightsPolicyStateDeletedEventData {
+    @doc("The time that the resource was scanned by Azure Policy in the Universal ISO 8601 DateTime format yyyy-MM-ddTHH:mm:ss.fffffffZ.")
+    timestamp: zonedDateTime,
+    @doc("The resource ID of the policy assignment.")
+    policyAssignmentId: string,
+    @doc("The resource ID of the policy definition.")
+    policyDefinitionId: string,
+    @doc("The reference ID for the policy definition inside the initiative definition, if the policy assignment is for an initiative. May be empty.")
+    policyDefinitionReferenceId: string,
+    @doc("The compliance state of the resource with respect to the policy assignment.")
+    complianceState: string,
+    @doc("The subscription ID of the resource.")
+    subscriptionId: string,
+    @doc("The compliance reason code. May be empty.")
+    complianceReasonCode: string,
+}

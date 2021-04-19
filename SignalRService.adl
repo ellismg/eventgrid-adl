@@ -1,0 +1,27 @@
+// https://github.com/Azure/azure-rest-api-specs/blob/master/specification/eventgrid/data-plane/Microsoft.SignalRService/stable/2018-01-01/SignalRService.json
+
+// @eventType("Microsoft.SignalRService.ClientConnectionConnected")
+model SignalRServiceClientConnectionConnectedEventData {
+    @doc("The time at which the event occurred.")
+    timestamp: zonedDateTime,
+    @doc("The hub of connected client connection.")
+    hubName: string,
+    @doc("The connection Id of connected client connection.")
+    connectionId: string,
+    @doc("The user Id of connected client connection.")
+    userId: string,
+}
+
+// @eventType("Microsoft.SignalRService.ClientConnectionDisconnected")
+model SignalRServiceClientConnectionDisconnectedEventData {
+    @doc("The time at which the event occurred.")
+    timestamp: zonedDateTime,
+    @doc("The hub of connected client connection.")
+    hubName: string,
+    @doc("The connection Id of connected client connection.")
+    connectionId: string,
+    @doc("The user Id of connected client connection.")
+    userId: string,
+    @doc("The message of error that cause the client connection disconnected.")
+    errorMessage: string,
+}

@@ -1,0 +1,5 @@
+{
+    "devDependencies": {
+        "@azure-tools/adl": "^0.8.0"
+    }
+}

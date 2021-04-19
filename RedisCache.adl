@@ -1,0 +1,23 @@
+// https://github.com/Azure/azure-rest-api-specs/blob/93e71ddc610824711d52b364103d7bea18ddb1d6/specification/eventgrid/data-plane/Microsoft.Cache/stable/2018-01-01/RedisCache.json
+
+// @eventType("Microsoft.Cache.PatchingCompleted")
+model RedisPatchingCompletedEventData = RedisEventCompletedEventData;
+
+// @eventType("Microsoft.Cache.ScalingCompleted")
+model RedisScalingCompletedEventData = RedisEventCompletedEventData;
+
+// @eventType("Microsoft.Cache.ExportRDBCompleted")
+model RedisExportRDBCompletedEventData = RedisEventCompletedEventData;
+
+// @eventType("Microsoft.Cache.ImportRDBCompleted")
+model RedisImportRDBCompletedEventData = RedisEventCompletedEventData;
+
+// NOTE(ellismg): RedisEventCompletedEventData.status is documented as being just "failed or succeeded". Would we imagine in an ADL first world the type would be "Failed" | "Succeded"?
+model RedisEventCompletedEventData {
+    @doc("The time at which the event occurred.")
+    timestamp: zonedDateTime,
+    @doc("The name of this event.")
+    name: string,
+    @doc("status of this event. Failed or succeeded")
+    status: string,
+}

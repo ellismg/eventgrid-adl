@@ -1,0 +1,48 @@
+// https://github.com/Azure/azure-rest-api-specs/blob/5090295953da8e6dae159e6a7a1a6296940501f9/specification/eventgrid/data-plane/Microsoft.KeyVault/stable/2018-01-01/KeyVault.json
+
+// @eventType("Microsoft.KeyVault.CertificateNewVersionCreated")
+model KeyVaultCertificateNewVersionCreatedEventData = KeyVaultCommonEventData;
+
+// @eventType("Microsoft.KeyVault.CertificateNearExpiry")
+model KeyVaultCertificateNearExpiryEventData = KeyVaultCommonEventData;
+
+// @eventType("Microsoft.KeyVault.CertificateExpired")
+model KeyVaultCertificateExpiredEventData = KeyVaultCommonEventData;
+
+// @eventType("Microsoft.KeyVault.KeyNewVersionCreated")
+model KeyVaultKeyNewVersionCreatedEventData = KeyVaultCommonEventData;
+
+// @eventType("Microsoft.KeyVault.KeyNearExpiry")
+model KeyVaultKeyNearExpiryEventData = KeyVaultCommonEventData;
+
+// @eventType("Microsoft.KeyVault.KeyExpired")
+model KeyVaultKeyExpiredEventData = KeyVaultCommonEventData;
+
+// @eventType("Microsoft.KeyVault.SecretNewVersionCreated")
+model KeyVaultSecretNewVersionCreatedEventData = KeyVaultCommonEventData;
+
+// @eventType("Microsoft.KeyVault.SecretNearExpiry")
+model KeyVaultSecretNearExpiryEventData = KeyVaultCommonEventData;
+
+// @eventType("Microsoft.KeyVault.SecretExpired")
+model KeyVaultSecretExpiredEventData = KeyVaultCommonEventData;
+
+// @eventType("Microsoft.KeyVault.VaultAccessPolicyChanged")
+model KeyVaultVaultAccessPolicyChangedEventData = KeyVaultCommonEventData;
+
+model KeyVaultCommonEventData {
+    @doc("The id of the object that triggered this event.")    
+    id: string,
+    @doc("Key vault name of the object that triggered this event.")
+    vaultName: string,
+    @doc("The type of the object that triggered this event.")
+    objectType: string,
+    @doc("The name of the object that triggered this event.")
+    objectName: string,
+    @doc("The version of the object that triggered this event.")
+    version: string,
+    @doc("Not before date of the object that triggered this event.")
+    nbf: int64,
+    @doc("The expiration date of the object that triggered this event.")
+    exp: int64,
+}

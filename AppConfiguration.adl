@@ -1,0 +1,27 @@
+// https://github.com/Azure/azure-rest-api-specs/blob/93e71ddc610824711d52b364103d7bea18ddb1d6/specification/eventgrid/data-plane/Microsoft.AppConfiguration/stable/2018-01-01/AppConfiguration.json
+
+// NOTE(ellismg): The shape of these two models is the same, but the documentation prose differs slightly for readability.
+
+// @eventType("Microsoft.AppConfiguration.KeyValueModified")
+model AppConfigurationKeyValueModifiedEventData {
+    @doc("The key used to identify the key-value that was modified.")
+    key: string,
+    @doc("The label, if any, used to identify the key-value that was modified.")
+    label: string,
+    @doc("The etag representing the new state of the key-value.")
+    etag: string,
+    @doc("The sync token representing the server state after the event.")
+    syncToken: string,
+}
+
+// @eventType("Microsoft.AppConfiguration.KeyValueDeleted")
+model AppConfigurationKeyValueDeletedEventData {
+    @doc("The key used to identify the key-value that was deleted.")
+    key: string,
+    @doc("The label, if any, used to identify the key-value that was deleted.")
+    label: string,
+    @doc("The etag representing the key-value that was deleted.")
+    etag: string,
+    @doc("The sync token representing the server state after the event.")
+    syncToken: string,
+}

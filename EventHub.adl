@@ -1,0 +1,23 @@
+import "./eventType.js";
+
+// @eventType("Microsoft.EventHub.CaptureFileCreated")
+model EventHubCaptureFileCreatedEventData {
+    @doc("The path to the capture file.")
+    fileurl: string,
+    @doc("The file type of the capture file.")
+    fileType: string,
+    @doc("The shard ID.")
+    partitionId: string,
+    @doc("The file size.")
+    sizeInBytes: int64,
+    @doc("The number of events in the file.")
+    eventCount: int64,
+    @doc("The smallest sequence number from the queue.")
+    firstSequenceNumber: int64,
+    @doc("The last sequence number from the queue.")
+    lastSequenceNumber: int64,
+    @doc("The first time from the queue.")
+    firstEnqueueTime: zonedDateTime,
+    @doc("The last time from the queue.")
+    lastEnqueueTime: zonedDateTime
+}

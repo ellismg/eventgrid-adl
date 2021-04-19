@@ -1,0 +1,286 @@
+// https://github.com/Azure/azure-rest-api-specs/blob/04b845f007952e58a86bbcc51810e6b0a4dff78b/specification/eventgrid/data-plane/Microsoft.Media/stable/2018-01-01/MediaServices.json
+
+// TODO(ellismg): How do we add the documentation from the swagger to each member?
+model MediaJobState = "Canceled" | "Canceling" | "Error" | "Finished" | "Processing" | "Queued" | "Scheduled";
+
+// NOTE(ellismg): correlationData was type: object with additionalProperties = true, from the example at https://docs.microsoft.com/en-us/azure/event-grid/event-schema-media-services?tabs=event-grid-event-schema
+// Map<string, string> felt right here.
+
+// @eventType("Microsoft.Media.JobStateChange")
+model MediaJobStateChangeEventData { 
+    @doc("The previous state of the Job.")
+    previousState: MediaJobState,
+    @doc("The new state of the Job.")
+    state: MediaJobState,
+    @doc("Gets the Job correlation data.")
+    correlationData: Map<string, string>,
+}
+
+model MediaJobErrorCode = "ServiceError" | "ServiceTransientError" | "DownloadNotAccessible" | "DownloadTransientError" | "UploadNotAccessible" | "UploadTransientError" | "ConfigurationUnsupported" | "ContentMalformed" | "ContentUnsupported";
+
+model MediaJobErrorCategory = "Service" | "Download" | "Upload" | "Configuration" | "Content";
+
+model MediaJobRetry = "DoNotRetry" | "MayRetry";
+
+model MediaJobErrorDetail {
+    @doc("Code describing the error detail.")
+    code: string,
+    @doc("A human-readable representation of the error.")
+    message: string,
+}
+
+model MediaJobError {
+    @doc("Error code describing the error.")
+    code: MediaJobErrorCode,
+    @doc("A human-readable language-dependent representation of the error.")
+    message: string,
+    @doc("Helps with categorization of errors.")
+    category: MediaJobErrorCategory,
+    @doc("Indicates that it may be possible to retry the Job. If retry is unsuccessful, please contact Azure support via Azure Portal.")
+    retry: MediaJobRetry,
+    @doc("An array of details about specific errors that led to this reported error.")
+    details: MediaJobErrorDetail[]
+}
+
+// TODO(matell): How should "descrimiator" be handled?  Does this pattern of "extends" with a literal make sense?
+model MediaJobOutput {
+    @doc("The discriminator for derived types.")
+    "@odata.type": string,
+    @doc("Gets the Job output error.")
+    error?: MediaJobError,
+    @doc("Gets the Job output label.")
+    label?: string,
+    @doc("Gets the Job output progress.")
+    progress: int64,
+    @doc("Gets the Job output state.")
+    state: MediaJobState,
+}
+
+model MediaJobOutputAsset extends MediaJobOutput {
+    @doc("The discriminator for derived types.")
+    "@odata.type": "#Microsoft.Media.JobOutputAsset",
+    @doc("Gets the Job output asset name")
+    assetName: string    
+}
+
+// @eventType("Microsoft.Media.JobOutputProgress")
+model MediaJobOutputProgressEventData {
+    @doc("Gets the Job output label.")
+    label: string,
+    @doc("Gets the Job output progress.")
+    progess: int64,
+    @doc("Gets the Job correlation data.")
+    jobCorrelationData: Map<string, string>    
+}
+
+// @eventType("Microsoft.Media.JobOutputStateChange")
+model MediaJobOutputStateChangeEventData {
+    @doc("The previous state of the Job.")
+    previousState: MediaJobState,
+    @doc("Gets the output.")
+    output: MediaJobOutput,
+    @doc("Gets the Job correlation data.")
+    jobCorrelationData: Map<string, string>
+}
+
+// @eventType("Microsoft.Media.JobScheduled")
+model MediaJobScheduledEventData = MediaJobStateChangeEventData;
+
+// @eventType("Microsoft.Media.JobProcessing")
+model MediaJobProcessingEventData = MediaJobStateChangeEventData;
+
+// @eventType("Microsoft.Media.JobCanceling")
+model MediaJobCancelingEventData = MediaJobStateChangeEventData;
+
+// @eventType("Microsoft.Media.JobFinished")
+model MediaJobFinishedEventData {
+    ...MediaJobStateChangeEventData,
+    @doc("Gets the Job outputs.")
+    output: MediaJobOutput[]
+}
+
+// @eventType("Microsoft.Media.JobCanceled")
+model MediaJobCanceledEventData {
+    ...MediaJobStateChangeEventData,
+    @doc("Gets the Job outputs.")
+    output: MediaJobOutput[]
+}
+
+// @eventType("Microsoft.Media.JobErrored")
+model MediaJobErroredEventData {
+    ...MediaJobStateChangeEventData,
+    @doc("Gets the Job outputs.")
+    output: MediaJobOutput[]
+}
+
+// @eventType("Microsoft.Media.JobOutputCanceled")
+model MediaJobOutputCanceledEventData = MediaJobOutputStateChangeEventData;
+
+// @eventType("Microsoft.Media.JobOutputCanceling")
+model MediaJobOutputCancelingEventData = MediaJobOutputStateChangeEventData;
+
+// @eventType("Microsoft.Media.JobOutputErrored")
+model MediaJobOutputErroredEventData = MediaJobOutputStateChangeEventData;
+
+// @eventType("Microsoft.Media.JobOutputFinished")
+model MediaJobOutputFinishedEventData = MediaJobOutputStateChangeEventData;
+
+// @eventType("Microsoft.Media.JobOutputProcessing")
+model MediaJobOutputProcessingEventData = MediaJobOutputStateChangeEventData;
+
+// @eventType("Microsoft.Media.JobOutputScheduled")
+model MediaJobOutputScheduledEventData = MediaJobOutputStateChangeEventData;
+
+// @eventType("Microsoft.Media.LiveEventEncoderConnected")
+model MediaLiveEventEncoderConnectedEventData {
+    @doc("Gets the ingest URL provided by the live event.")
+    injestUrl: string,
+    @doc("Gets the stream Id.")
+    streamId: string,
+    @doc("Gets the remote IP.")
+    encoderIp: string,
+    @doc("Gets the remote port.")
+    encoderPort: string
+}
+
+// @eventType("Microsoft.Media.LiveEventConnectionRejected")
+model MediaLiveEventConnectionRejectedEventData {
+    @doc("Gets the ingest URL provided by the live event.")
+    injestUrl: string,
+    @doc("Gets the stream Id.")
+    streamId: string,
+    @doc("Gets the remote IP.")
+    encoderIp: string,
+    @doc("Gets the remote port.")
+    encoderPort: string,
+    @doc("Gets the result code.")
+    resultCode: string
+}
+
+// @eventType("Microsoft.Media.LiveEventEncoderDisconnected")
+model MediaLiveEventEncoderDisconnectedEventData {
+    @doc("Gets the ingest URL provided by the live event.")
+    injestUrl: string,
+    @doc("Gets the stream Id.")
+    streamId: string,
+    @doc("Gets the remote IP.")
+    encoderIp: string,
+    @doc("Gets the remote port.")
+    encoderPort: string,
+    @doc("Gets the result code.")
+    resultCode: string
+}
+
+// @eventType("Microsoft.Media.LiveEventIncomingStreamReceived")
+model MediaLiveEventIncomingStreamReceivedEventData {
+    @doc("Gets the ingest URL provided by the live event.")
+    injestUrl: string,
+    @doc("Gets the type of the track (Audio / Video).")
+    trackType: string,
+    @doc("Gets the track name.")
+    trackName: string,
+    @doc("Gets the bitrate of the track.")
+    bitrate: int64,
+    @doc("Gets the remote IP.")
+    encoderId: string,
+    @doc("Gets the remote port.")
+    encoderPort: string,
+    @doc("Gets the first timestamp of the data chunk received.")
+    timestamp: string,
+    @doc("Gets the duration of the first data chunk.")
+    duration: string,
+    @doc("Gets the timescale in which timestamp is represented.")
+    timescale: string,
+}
+
+// @eventType("Microsoft.Media.LiveEventIncomingStreamsOutOfSync")
+model MediaLiveEventIncomingStreamsOutOfSyncEventData {
+  @doc("Gets the minimum last timestamp received.")
+  minLastTimestamp: string,
+  @doc("Gets the type of stream with minimum last timestamp.")
+  typeOfStreamWithMinLastTimestamp: string,
+  @doc("Gets the maximum timestamp among all the tracks (audio or video).")
+  maxLastTimestamp: string,
+  @doc("Gets the type of stream with maximum last timestamp.")
+  typeOfStreamWithMaxLastTimestamp: string,
+  @doc("Gets the timescale in which \"MinLastTimestamp\" is represented.")
+  timescaleOfMinLastTimestamp: string,
+  @doc("Gets the timescale in which \"MaxLastTimestamp\" is represented.")
+  timescaleOfMaxLastTimestamp: string,
+}
+
+// @eventType("Microsoft.Media.LiveEventIncomingVideoStreamsOutOfSync")
+model MediaLiveEventIncomingVideoStreamsOutOfSyncEventData {
+  @doc("Gets the first timestamp received for one of the quality levels.")
+  firstTimestamp: string,
+  @doc("Gets the duration of the data chunk with first timestamp.")
+  firstDuration: string,
+  @doc("Gets the timestamp received for some other quality levels.")
+  secondTimestamp: string,
+  @doc("Gets the duration of the data chunk with second timestamp.")
+  secondDuration: string,
+  @doc("Gets the timescale in which both the timestamps and durations are represented.")
+  timescale: string,
+}
+
+// @eventType("Microsoft.Media.LiveEventIncomingDataChunkDropped")
+model MediaLiveEventIncomingDataChunkDroppedEventData {
+  @doc("Gets the timestamp of the data chunk dropped.")
+  timestamp: string,
+  @doc("Gets the type of the track (Audio / Video).")
+  trackType: string,
+  @doc("Gets the bitrate of the track.")
+  bitrate: int64,
+  @doc("Gets the timescale of the Timestamp.")
+  timescale: string,
+  @doc("Gets the result code for fragment drop operation.")
+  resultCode: string,
+  @doc("Gets the name of the track for which fragment is dropped.")
+  trackName: string,
+}
+
+// @eventType("Microsoft.Media.LiveEventIngestHeartbeat")
+model MediaLiveEventIngestHeartbeatEventData {
+  @doc("Gets the type of the track (Audio / Video).")
+  trackType: string,
+  @doc("Gets the track name.")
+  trackName: string,
+  @doc("Gets the bitrate of the track.")
+  bitrate: int64,
+  @doc("Gets the incoming bitrate.")
+  incomingBitrate: int64,
+  @doc("Gets the last timestamp.")
+  lastTimestamp: string,
+  @doc("Gets the timescale of the last timestamp.")
+  timescale: string,
+  @doc("Gets the fragment Overlap count.")
+  overlapCount: int64,
+  @doc("Gets the fragment Discontinuity count.")
+  discontinuityCount: int64,
+  @doc("Gets Non increasing count.")
+  nonincreasingCount: int64,
+  @doc("Gets a value indicating whether unexpected bitrate is present or not.")
+  unexpectedBitrate: boolean,
+  @doc("Gets the state of the live event.")
+  state: string,
+  @doc("Gets a value indicating whether preview is healthy or not.")
+  healthy: boolean,
+}
+
+// @eventType("Microsoft.Media.LiveEventTrackDiscontinuityDetected")
+model MediaLiveEventTrackDiscontinuityDetectedEventData {
+  @doc("Gets the type of the track (Audio / Video).")
+  trackType: string,
+  @doc("Gets the track name.")
+  trackName: string,
+  @doc("Gets the bitrate.")
+  bitrate: int64,
+  @doc("Gets the timestamp of the previous fragment.")
+  previousTimestamp: string,
+  @doc("Gets the timestamp of the current fragment.")
+  newTimestamp: string,
+  @doc("Gets the timescale in which both timestamps and discontinuity gap are represented.")
+  timescale: string,
+  @doc("Gets the discontinuity gap between PreviousTimestamp and NewTimestamp.")
+  discontinuityGap: string,
+}

@@ -1,0 +1,235 @@
+// https://github.com/Azure/azure-rest-api-specs/tree/master/specification/eventgrid/data-plane/Microsoft.Resources/stable/2018-01-01
+
+// @eventType("Microsoft.Resources.ResourceWriteSuccess")
+model ResourceWriteSuccessData {
+    @doc("The tenant ID of the resource.")
+    tenantId: string,
+    @doc("The subscription ID of the resource.")
+    subscriptionId: string,
+    @doc("The resource group of the resource.")
+    resourceGroup: string,
+    @doc("The resource provider performing the operation.")
+    resourceProvider: string,
+    @doc("The URI of the resource in the operation.")
+    resourceUri: string,
+    @doc("The operation that was performed.")
+    operationName: string,
+    @doc("The status of the operation.")
+    status: string,
+    @doc("The requested authorization for the operation.")
+    authorization: string,
+    @doc("The properties of the claims.")
+    claims: string,
+    @doc("An operation ID used for troubleshooting.")
+    correlationId: string,
+    @doc("The details of the operation.")
+    httpRequest: string,
+}
+
+// @eventType("Microsoft.Resources.Microsoft.Resources.ResourceWriteFailure")
+model ResourceWriteFailureData {
+    @doc("The tenant ID of the resource.")
+    tenantId: string,
+    @doc("The subscription ID of the resource.")
+    subscriptionId: string,
+    @doc("The resource group of the resource.")
+    resourceGroup: string,
+    @doc("The resource provider performing the operation.")
+    resourceProvider: string,
+    @doc("The URI of the resource in the operation.")
+    resourceUri: string,
+    @doc("The operation that was performed.")
+    operationName: string,
+    @doc("The status of the operation.")
+    status: string,
+    @doc("The requested authorization for the operation.")
+    authorization: string,
+    @doc("The properties of the claims.")
+    claims: string,
+    @doc("An operation ID used for troubleshooting.")
+    correlationId: string,
+    @doc("The details of the operation.")
+    httpRequest: string,
+}
+
+// @eventType("Microsoft.Resources.Microsoft.Resources.ResourceWriteCancel")
+model ResourceWriteCancelData {
+    @doc("The tenant ID of the resource.")
+    tenantId: string,
+    @doc("The subscription ID of the resource.")
+    subscriptionId: string,
+    @doc("The resource group of the resource.")
+    resourceGroup: string,
+    @doc("The resource provider performing the operation.")
+    resourceProvider: string,
+    @doc("The URI of the resource in the operation.")
+    resourceUri: string,
+    @doc("The operation that was performed.")
+    operationName: string,
+    @doc("The status of the operation.")
+    status: string,
+    @doc("The requested authorization for the operation.")
+    authorization: string,
+    @doc("The properties of the claims.")
+    claims: string,
+    @doc("An operation ID used for troubleshooting.")
+    correlationId: string,
+    @doc("The details of the operation.")
+    httpRequest: string,
+}
+
+// @eventType("Microsoft.Resources.Microsoft.Resources.ResourceDeleteSuccess")
+model ResourceDeleteSuccessData {
+    @doc("The tenant ID of the resource.")
+    tenantId: string,
+    @doc("The subscription ID of the resource.")
+    subscriptionId: string,
+    @doc("The resource group of the resource.")
+    resourceGroup: string,
+    @doc("The resource provider performing the operation.")
+    resourceProvider: string,
+    @doc("The URI of the resource in the operation.")
+    resourceUri: string,
+    @doc("The operation that was performed.")
+    operationName: string,
+    @doc("The status of the operation.")
+    status: string,
+    @doc("The requested authorization for the operation.")
+    authorization: string,
+    @doc("The properties of the claims.")
+    claims: string,
+    @doc("An operation ID used for troubleshooting.")
+    correlationId: string,
+    @doc("The details of the operation.")
+    httpRequest: string,
+}
+
+// @eventType("Microsoft.Resources.Microsoft.Resources.ResourceDeleteFailure")
+model ResourceDeleteFailureData {
+    @doc("The tenant ID of the resource.")
+    tenantId: string,
+    @doc("The subscription ID of the resource.")
+    subscriptionId: string,
+    @doc("The resource group of the resource.")
+    resourceGroup: string,
+    @doc("The resource provider performing the operation.")
+    resourceProvider: string,
+    @doc("The URI of the resource in the operation.")
+    resourceUri: string,
+    @doc("The operation that was performed.")
+    operationName: string,
+    @doc("The status of the operation.")
+    status: string,
+    @doc("The requested authorization for the operation.")
+    authorization: string,
+    @doc("The properties of the claims.")
+    claims: string,
+    @doc("An operation ID used for troubleshooting.")
+    correlationId: string,
+    @doc("The details of the operation.")
+    httpRequest: string,
+}
+
+// @eventType("Microsoft.Resources.Microsoft.Resources.ResourceDeleteCancel")
+model ResourceDeleteCancelData {
+    @doc("The tenant ID of the resource.")
+    tenantId: string,
+    @doc("The subscription ID of the resource.")
+    subscriptionId: string,
+    @doc("The resource group of the resource.")
+    resourceGroup: string,
+    @doc("The resource provider performing the operation.")
+    resourceProvider: string,
+    @doc("The URI of the resource in the operation.")
+    resourceUri: string,
+    @doc("The operation that was performed.")
+    operationName: string,
+    @doc("The status of the operation.")
+    status: string,
+    @doc("The requested authorization for the operation.")
+    authorization: string,
+    @doc("The properties of the claims.")
+    claims: string,
+    @doc("An operation ID used for troubleshooting.")
+    correlationId: string,
+    @doc("The details of the operation.")
+    httpRequest: string,
+}
+
+// @eventType("Microsoft.Resources.Microsoft.Resources.ResourceActionSuccess")
+model ResourceActionSuccessData {
+    @doc("The tenant ID of the resource.")
+    tenantId: string,
+    @doc("The subscription ID of the resource.")
+    subscriptionId: string,
+    @doc("The resource group of the resource.")
+    resourceGroup: string,
+    @doc("The resource provider performing the operation.")
+    resourceProvider: string,
+    @doc("The URI of the resource in the operation.")
+    resourceUri: string,
+    @doc("The operation that was performed.")
+    operationName: string,
+    @doc("The status of the operation.")
+    status: string,
+    @doc("The requested authorization for the operation.")
+    authorization: string,
+    @doc("The properties of the claims.")
+    claims: string,
+    @doc("An operation ID used for troubleshooting.")
+    correlationId: string,
+    @doc("The details of the operation.")
+    httpRequest: string,
+}
+
+// @eventType("Microsoft.Resources.Microsoft.Resources.ResourceActionFailure")
+model ResourceActionFailureData {
+    @doc("The tenant ID of the resource.")
+    tenantId: string,
+    @doc("The subscription ID of the resource.")
+    subscriptionId: string,
+    @doc("The resource group of the resource.")
+    resourceGroup: string,
+    @doc("The resource provider performing the operation.")
+    resourceProvider: string,
+    @doc("The URI of the resource in the operation.")
+    resourceUri: string,
+    @doc("The operation that was performed.")
+    operationName: string,
+    @doc("The status of the operation.")
+    status: string,
+    @doc("The requested authorization for the operation.")
+    authorization: string,
+    @doc("The properties of the claims.")
+    claims: string,
+    @doc("An operation ID used for troubleshooting.")
+    correlationId: string,
+    @doc("The details of the operation.")
+    httpRequest: string,
+}
+
+// @eventType("Microsoft.Resources.Microsoft.Resources.ResourceActionCancel")
+model ResourceActionCancelData {
+    @doc("The tenant ID of the resource.")
+    tenantId: string,
+    @doc("The subscription ID of the resource.")
+    subscriptionId: string,
+    @doc("The resource group of the resource.")
+    resourceGroup: string,
+    @doc("The resource provider performing the operation.")
+    resourceProvider: string,
+    @doc("The URI of the resource in the operation.")
+    resourceUri: string,
+    @doc("The operation that was performed.")
+    operationName: string,
+    @doc("The status of the operation.")
+    status: string,
+    @doc("The requested authorization for the operation.")
+    authorization: string,
+    @doc("The properties of the claims.")
+    claims: string,
+    @doc("An operation ID used for troubleshooting.")
+    correlationId: string,
+    @doc("The details of the operation.")
+    httpRequest: string,
+}
