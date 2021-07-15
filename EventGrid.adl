@@ -1,4 +1,7 @@
-op 
+import "@azure-tools/adl-rest";
+import "@azure-tools/adl-openapi";
+
+namespace Azure.Messaging.EventGrid;
 
 model EventGridEvent {
     @doc("An unique identifier for the event.")
@@ -74,6 +77,16 @@ model SubscriptionDeletedEventData {
     eventSubscriptionId: string,
 }
 
-op PublishEventGridEvents (events: EventGridEvent[])
-op PublishCloudEvents(events: CloudEventEvent[])
-op PublishCustomEvents(events: CustomEvent[])
+@serviceTitle("Pet Store Service")
+@serviceVersion("2018-01-01")
+@produces("application/json")
+@consumes("application/json")
+@resource("/api/events")
+namespace EventGridPublisher {
+    @post
+    op PublishEventGridEvents (@body events: EventGridEvent[]): OkResponse<{}>;
+    @post("?overload=cloudEvent")
+    op PublishCloudEvents(@body events: CloudEventEvent[]): OkResponse<{}>;
+    @post("?overload=customEvent")
+    op PublishCustomEvents(@body events: CustomEventEvent[]): OkResponse<{}>;
+}

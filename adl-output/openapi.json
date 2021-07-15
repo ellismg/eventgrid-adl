@@ -1,0 +1,221 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Pet Store Service",
+    "version": "2018-01-01"
+  },
+  "schemes": [
+    "https"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "tags": [],
+  "paths": {
+    "/api/events": {
+      "post": {
+        "operationId": "EventGridPublisher_PublishEventGridEvents",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "events",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Azure.Messaging.EventGrid.EventGridEvent"
+              },
+              "x-adl-name": "Azure.Messaging.EventGrid.EventGridEvent[]"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "x-adl-name": "(anonymous model)"
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-ms-paths": {
+    "/api/events/?overload=cloudEvent": {
+      "post": {
+        "operationId": "EventGridPublisher_PublishCloudEvents",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "events",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Azure.Messaging.EventGrid.CloudEventEvent"
+              },
+              "x-adl-name": "Azure.Messaging.EventGrid.CloudEventEvent[]"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "x-adl-name": "(anonymous model)"
+            }
+          }
+        }
+      }
+    },
+    "/api/events/?overload=customEvent": {
+      "post": {
+        "operationId": "EventGridPublisher_PublishCustomEvents",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "events",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Azure.Messaging.EventGrid.CustomEventEvent"
+              },
+              "x-adl-name": "Azure.Messaging.EventGrid.CustomEventEvent[]"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "x-adl-name": "(anonymous model)"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Azure.Messaging.EventGrid.EventGridEvent": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "topic": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "eventType": {
+          "type": "string"
+        },
+        "eventTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "metadataVersion": {
+          "type": "string"
+        },
+        "dataVersion": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "topic",
+        "subject",
+        "data",
+        "eventType",
+        "eventTime",
+        "metadataVersion",
+        "dataVersion"
+      ]
+    },
+    "Azure.Messaging.EventGrid.CloudEventEvent": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "data_base64": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "specversion": {
+          "type": "string"
+        },
+        "dataschema": {
+          "type": "string"
+        },
+        "datacontenttype": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "data",
+        "data_base64",
+        "type",
+        "time",
+        "specversion",
+        "dataschema",
+        "datacontenttype",
+        "subject"
+      ]
+    },
+    "Azure.Messaging.EventGrid.CustomEventEvent": {
+      "type": "object",
+      "properties": {}
+    }
+  },
+  "parameters": {}
+}
